@@ -1,0 +1,21 @@
+<%= link_to "Página inicial", news_index_path %> /
+<%= link_to "Criar nova noticia", new_news_path %>
+<%= link_to " / Gerenciar Colaboradores", users_path if session[:user]["role"] == "administrator"%>
+<br>
+<%= session[:user]["role"] if session[:user] %>
+<table class="table table-bordered centered" >
+  <% @noticias.each do |n| %>
+    <tr class="warning">
+      <td> <%= n.title %> </td>
+      <td> <%= n.subtitle %> </td>
+      <td> <%= n.body %> </td>
+      <% if session[:user] %>
+        <td> <%= link_to "Deletar noticia", n, method: :delete %> </td>
+        <% if session[:user]["id"] == n.user_id %>
+          <td> <%= link_to "Editar noticia", edit_news_path(n) %> </td>
+        <% end %>
+      <% end %>
+      <td> <%= image_tag n.photo.url(:thumb) %> </td>
+    </tr>
+  <% end %>
+</table>

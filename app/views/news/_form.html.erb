@@ -1,0 +1,39 @@
+<%= form_for(@noticia, :html => { :multipart => true }) do |form| %>
+  <form>
+    <div class="form-group">
+      <%= form.label :title %>
+      <p>
+        <%= form.text_field :title %>
+        <%= form.check_box :title_show %>
+      </p>
+    </div>
+    <br>
+    <div class="form-group">
+      <%= form.label :subtitle %>
+      <p>
+        <%= form.text_field :subtitle %>
+        <%= form.check_box :subtitle_show %>
+      </p>
+    </div>
+    <br>
+    <div class="form-group">
+      <%= form.label :body %>
+      <p>
+        <%= form.text_area :body, size:"40x8" %>
+        <%= form.check_box :body_show %>
+      </p>
+    </div>
+    <p>
+      <%= form.file_field :photo %>
+      <%= form.check_box :photo_show %>
+    </p>
+    <% if session[:user]["role"] == "administrator" %>
+      <%= form.select :show, [["Cabeçalho", "Header"], ["Rodapé", "Footer"],
+        ["Principal", "Main"], ["Secundário", "Secondary"]] %>
+    <% else %>
+      <%= form.select :show, [["Principal", "Main"], ["Secundário", "Secondary"]] %>
+    <% end %>
+    <br>
+    <%= form.submit "Salvar", class:"btn btn-success" %>
+  </form>
+<% end %>

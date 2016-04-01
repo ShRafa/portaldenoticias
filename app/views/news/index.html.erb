@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-md-8" style="background-color:white; min-height:150px;">
+    <div class="panel panel-default">
+      <div class="panel-heading"> Principais </div>
+        <div class="panel-body">
+        <% @noticias.each do |n| %>
+          <% if n.show == "Main" %>
+              <hr style="border-color:black">
+              <% if n.photo_show == true %>
+                <%= image_tag n.photo.url(:thumb) %>
+              <% end %>
+              <% if n.title_show == true %>
+                <%= n.title %> <br>
+              <% end %>
+              <% if n.subtitle_show == true %>
+                <%= n.subtitle %> <br>
+              <% end %>
+              <% if n.body_show == true %>
+                <%= n.body %> <br>
+              <% end %>
+              <% if session[:user] %>
+              <% if session[:user]["role"] == "administrator" %>
+                  <%= link_to "Deletar noticia", n, method: :delete %>
+                <% elsif (session[:user]["role"] == "director") && (n.user.role == "professor") %>
+                    <%= link_to "Deletar noticia", n, method: :delete %>
+                  <% elsif session[:user]["id"] == n.user_id %>
+                    <td> <%= link_to "Deletar noticia", n, method: :delete %> </td>
+                <% end %>
+                <% if session[:user]["id"] == n.user_id %>
+                  <td> <%= link_to "Editar noticia", edit_news_path(n) %> </td>
+                <% end %>
+              <% end %>
+            <br>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4" style="background-color:white; min-height:150px;">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% if session[:user] %>
+          <%= link_to "Logout", logout_path, class: "btn btn-primary pull-left", style: "color: white;" %> &nbsp;
+          <%= link_to "Gerenciar notícias", news_userpag_path, class: "btn btn-primary", style: "color: white;" %>
+        <% else %>
+          <%= link_to "Login", login_path, class: "btn btn-primary pull-left", style: "color: white;" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading"> Mais Notícias </div>
+        <div class="panel-body">
+          <% @noticias.each do |n| %>
+            <% if n.show == "Secondary" %>
+                <% if n.photo_show == true %>
+                  <%= image_tag n.photo.url(:thumb) %>
+                <% end %>
+                <% if n.title_show == true %>
+                  <%= n.title %> <br>
+                <% end %>
+                <% if n.subtitle_show == true %>
+                  <%= n.subtitle %> <br>
+                <% end %>
+                <% if n.body_show == true %>
+                  <%= n.body %>
+                <% end %>
+                <% if session[:user] %>
+                <% if session[:user]["role"] == "administrator" %>
+                    <%= link_to "Deletar noticia", n, method: :delete %>
+                  <% elsif (session[:user]["role"] == "director") && (n.user.role == "professor") %>
+                      <%= link_to "Deletar noticia", n, method: :delete %>
+                    <% elsif session[:user]["id"] == n.user_id %>
+                      <td> <%= link_to "Deletar noticia", n, method: :delete %> </td>
+                  <% end %>
+                  <% if session[:user]["id"] == n.user_id %>
+                    <td> <%= link_to "Editar noticia", edit_news_path(n) %> </td>
+                  <% end %>
+                <% end %>
+                <hr style="border-color:black">
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

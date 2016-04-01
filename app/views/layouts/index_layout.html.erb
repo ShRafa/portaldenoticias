@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PortalNoticias</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <% if notice %>
+    <div class="alert alert-danger" role="alert">
+      <%= notice %>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="carousel">
+        <% news_header.each do |noticia| %>
+          <div> <%= image_tag noticia.photo.url(:carousel) %> </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
+<%= yield %>
+  <div class="row">
+    <div class="col-md-12">
+        <div class="arrow">
+          <% news_footer.each do |noticia| %>
+            <div> <%= image_tag noticia.photo.url(:carousel) %> </div>
+          <% end %>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
