@@ -11,7 +11,7 @@ class NewsController < ApplicationController
   end
 
   def userpag
-    if session[:user]["role"] == "administrator"
+    if Role.find(session[:user]["role_id"]).description == "administrador"
       @noticias = News.all
     else
       @noticias = News.where(user_id: session[:user]["id"])

@@ -5,23 +5,26 @@
         <div class="panel-body">
         <% @noticias.each do |n| %>
           <% if n.show == "Main" %>
-              <hr style="border-color:black">
               <% if n.photo_show == true %>
                 <%= image_tag n.photo.url(:thumb) %>
               <% end %>
               <% if n.title_show == true %>
-                <%= n.title %> <br>
+                <font size="6">
+                  <%= n.title %> <br>
+                </font>
               <% end %>
               <% if n.subtitle_show == true %>
-                <%= n.subtitle %> <br>
+                <font size="4">
+                  <u> <%= n.subtitle %> </u> <br>
+                </font>
               <% end %>
               <% if n.body_show == true %>
                 <%= n.body %> <br>
               <% end %>
               <% if session[:user] %>
-              <% if session[:user]["role"] == "administrator" %>
+              <% if Role.find(session[:user]["role_id"]).description == "administrador" %>
                   <%= link_to "Deletar noticia", n, method: :delete %>
-                <% elsif (session[:user]["role"] == "director") && (n.user.role == "professor") %>
+                <% elsif (Role.find(session[:user]["role_id"]).description == "diretor") && (n.user.role.description == "professor") %>
                     <%= link_to "Deletar noticia", n, method: :delete %>
                   <% elsif session[:user]["id"] == n.user_id %>
                     <td> <%= link_to "Deletar noticia", n, method: :delete %> </td>
@@ -30,7 +33,7 @@
                   <td> <%= link_to "Editar noticia", edit_news_path(n) %> </td>
                 <% end %>
               <% end %>
-            <br>
+            <hr style="border-color:black">
           <% end %>
         <% end %>
       </div>
@@ -56,18 +59,20 @@
                   <%= image_tag n.photo.url(:thumb) %>
                 <% end %>
                 <% if n.title_show == true %>
-                  <%= n.title %> <br>
+                  <b> <i>
+                    <%= n.title %> <br>
+                  </b> </i>
                 <% end %>
                 <% if n.subtitle_show == true %>
-                  <%= n.subtitle %> <br>
+                  <u> <%= n.subtitle %> </u> <br>
                 <% end %>
                 <% if n.body_show == true %>
                   <%= n.body %>
                 <% end %>
                 <% if session[:user] %>
-                <% if session[:user]["role"] == "administrator" %>
+                <% if Role.find(session[:user]["role_id"]).description == "administrador" %>
                     <%= link_to "Deletar noticia", n, method: :delete %>
-                  <% elsif (session[:user]["role"] == "director") && (n.user.role == "professor") %>
+                  <% elsif (Role.find(session[:user]["role_id"]).description == "diretor") && (n.user.role.description == "professor") %>
                       <%= link_to "Deletar noticia", n, method: :delete %>
                     <% elsif session[:user]["id"] == n.user_id %>
                       <td> <%= link_to "Deletar noticia", n, method: :delete %> </td>

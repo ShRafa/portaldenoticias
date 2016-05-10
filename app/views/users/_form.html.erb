@@ -24,11 +24,12 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :role %><br>
-    <%= f.select :role, { :diretor => "director", :professor => "professor" } %>
+    <%= f.label :role_id %><br>
+    <%= f.select :role_id, @roles %>
   </div>
   <br>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+il

@@ -1,6 +1,6 @@
 <%= link_to "Página inicial", news_index_path %> /
 <%= link_to "Criar nova noticia", new_news_path %>
-<%= link_to " / Gerenciar Colaboradores", users_path if session[:user]["role"] == "administrator"%>
+<%= link_to " / Gerenciar Colaboradores", users_path if Role.find(session[:user]["role_id"]).description == "administrador"%>
 <br>
 <%= session[:user]["role"] if session[:user] %>
 <table class="table table-bordered centered" >

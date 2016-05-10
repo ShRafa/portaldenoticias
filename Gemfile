@@ -46,4 +46,6 @@ group :development, :test do
   gem 'spring'
 
   gem 'rails-erd'
+
+  gem 'railroady'
 end

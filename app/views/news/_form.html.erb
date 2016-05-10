@@ -27,7 +27,7 @@
       <%= form.file_field :photo %>
       <%= form.check_box :photo_show %>
     </p>
-    <% if session[:user]["role"] == "administrator" %>
+    <% if Role.find(session[:user]["role_id"]).description == "administrador" %>
       <%= form.select :show, [["Cabeçalho", "Header"], ["Rodapé", "Footer"],
         ["Principal", "Main"], ["Secundário", "Secondary"]] %>
     <% else %>

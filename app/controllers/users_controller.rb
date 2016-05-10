@@ -16,10 +16,18 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @roles = {}
+    Role.all.each do |r|
+      @roles[r.description] = r.id
+    end
   end
 
   # GET /users/1/edit
   def edit
+    @roles = {}
+    Role.all.each do |r|
+      @roles[r.description] = r.id
+    end
   end
 
   # POST /users
@@ -70,11 +78,12 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :password, :email, :role)
+      params.require(:user).permit(:name, :password, :email, :role_id)
     end
 
     def valid_admin
-      if !session[:user] or User.find(session[:user]["id"]).role != "administrator"
+      return
+      if !session[:user] or User.find(session[:user]["id"]).role.description != "administrador"
         flash[:notice] = "Você não tem permissão para ver a lista de usuários"
         redirect_to news_index_path
       end
