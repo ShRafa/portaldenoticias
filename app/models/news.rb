@@ -1,6 +1,6 @@
 class News < ActiveRecord::Base
   has_attached_file :photo,
-  :styles => { :carousel => "200x1200", :thumb => "100x100>", :teste => "150x1200" },
+  :styles => { :carousel => "1600x500", :thumb => "100x100>", :teste => "150x1200" },
   :default_url => "/images/:style/missing.png"
   belongs_to :user
 
